@@ -5,6 +5,8 @@
 #define DEFAULT_FILE "data.txt"
 #define WORKDIR "./workdir"
 
+void start_tui(const char *filename);
+
 int main(int argc, char *argv[]) {
     int do_copy = 0;
 
