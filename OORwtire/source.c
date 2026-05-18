@@ -11,27 +11,36 @@ typedef struct {
     size_t cursor;
 } Buffer;
 
-Buffer load_file(const char *path) {
+Buffer *load_file(const char *path) {
     FILE *f = fopen(path, "rb");
-    Buffer b = {NULL, 0, 0};
+    Buffer *b = malloc(sizeof(Buffer));
+    if (!b) return NULL;
+
+    b->data = NULL;
+    b->size = 0;
+    b->cursor = 0;
 
     if (!f) return b;
 
     fseek(f, 0, SEEK_END);
-    b.size = ftell(f);
+    b->size = ftell(f);
     rewind(f);
 
-    b.data = malloc(b.size + 1);
-    fread(b.data, 1, b.size, f);
+    b->data = malloc(b->size + 1);
+    fread(b->data, 1, b->size, f);
     fclose(f);
+
     return b;
 }
 
 void save_file(const char *path, Buffer *b) {
     FILE *f = fopen(path, "wb");
-    fwrite(b.data, 1, b.size, f);
+    if (!f) return;
+
+    fwrite(b->data, 1, b->size, f);  // ✅ 正确
     fclose(f);
 }
+
 
 int main(int argc, char **argv) {
     if (argc != 2) return 1;
