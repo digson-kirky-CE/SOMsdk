@@ -45,7 +45,7 @@ void save_file(const char *path, Buffer *b) {
 int main(int argc, char **argv) {
     if (argc != 2) return 1;
 
-    Buffer buf = load_file(argv[1]);
+    Buffer buf = *load_file(argv[1]);
     if (!buf.data) buf.data = calloc(1, 1);
 
     initscr();
