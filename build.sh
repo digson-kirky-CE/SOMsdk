@@ -1,4 +1,5 @@
 CC=clang
 CFLAGS=-Wall -O2
 LIBS=-lncurses
-$CC $CFLAGS incw.c -o incw $LIBS
+cd OOR*
+$CC $CFLAGS source.c -o incw $LIBS
